@@ -1,7 +1,7 @@
 {
   "name": "training-project-pizza-store-react-redux",
   "version": "0.1.0",
-  "namepages": "https://sidorovserega.github.io/training-project-pizza-store-react-redux/",
+  "homepage": "https://sidorovserega.github.io/training-project-pizza-store-react-redux/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
