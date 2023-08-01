@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './components/index';
 import { Home, Basket } from './pages/index';
+import NotFound from './pages/NotFound';
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
             <Routes>
               <Route exact path='/' Component={Home} />
               <Route path='/basket' Component={Basket} />
+              <Route path='*' Component={NotFound}/>
             </Routes>
           </div>
         </main>
