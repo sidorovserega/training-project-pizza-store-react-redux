@@ -12,7 +12,7 @@ const App = () => {
         <main>
           <div className="content">
             <Routes>
-              <Route exact path='/' Component={Home} />
+              <Route path='/' Component={Home} />
               <Route path='/basket' Component={Basket} />
               <Route path='*' Component={NotFound}/>
             </Routes>

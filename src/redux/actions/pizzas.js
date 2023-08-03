@@ -5,7 +5,9 @@ export const fetchPizzas = (category, sortBy) => (dispatch) => {
   
   const filter = category !== null ? "&category=" + category : "";
   
-  axios.get(`/pizzas?${filter}&_sort=${sortBy}&_order=asc`).
+  axios.get(process.env.NODE_ENV === 'development' ?
+    `http://localhost:3001/pizzas?${filter}&_sort=${sortBy}&_order=asc` : 
+    `https://sidorovserega.github.io/training-project-pizza-store-react-redux/db.json`).
     then(({data}) => dispatch(setPizzas(data)));
   
 };

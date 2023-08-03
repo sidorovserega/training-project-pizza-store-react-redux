@@ -24,9 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "build": "react-scripts build && shx cp build/index.html build/404.html",
     "json-server": "json-server --watch public/db.json --port 3001",
     "deploy": "gh-pages -d build",
     "predeploy": "npm run build"
@@ -37,7 +35,6 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://localhost:3001",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -51,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.17.3"
+    "json-server": "^0.17.3",
+    "shx": "^0.3.4"
   }
 }
