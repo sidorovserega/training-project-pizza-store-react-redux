@@ -5,13 +5,16 @@ export const fetchPizzas = (category, sortBy) => (dispatch) => {
   
   const filter = category !== null ? "&category=" + category : "";
   
-  axios.get(process.env.NODE_ENV === 'development' ?
-    `http://localhost:3001/pizzas?${filter}&_sort=${sortBy}&_order=asc` : 
-    `https://sidorovserega.github.io/training-project-pizza-store-react-redux/db.json`).
+  if (process.env.NODE_ENV === 'development') {
+    axios.get(`https://643e8870c72fda4a0bf95812.mockapi.io/pizzas?${filter}&sortBy=${sortBy}&order=asc`).
+    // axios.get(`http://localhost:3001/data?${filter}&_sort=${sortBy}&_order=asc`).
     then(({data}) => dispatch(setPizzas(data)));
-  
-};
-
+  } else {
+    axios.get(`https://643e8870c72fda4a0bf95812.mockapi.io/pizzas?${filter}&sortBy=${sortBy}&order=asc`).
+    then(({data}) => dispatch(setPizzas(data)));
+  }
+}
+   
 export const setPizzas = (items) => ({
   type: 'SET_PIZZAS',
   payload: items
