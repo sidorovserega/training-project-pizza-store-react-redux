@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/training-project-pizza-store-react-redux/static/css/main.cb5db22c.css",
-    "main.js": "/training-project-pizza-store-react-redux/static/js/main.a8389e8f.js",
+    "main.js": "/training-project-pizza-store-react-redux/static/js/main.ba708df0.js",
     "static/media/ProximaNova-Regular.eot": "/training-project-pizza-store-react-redux/static/media/ProximaNova-Regular.d97f8f32c098b28c3ab0.eot",
     "static/media/ProximaNova-Regular.ttf": "/training-project-pizza-store-react-redux/static/media/ProximaNova-Regular.b078618b41b9b6629ea0.ttf",
     "static/media/ProximaNova-Bold.eot": "/training-project-pizza-store-react-redux/static/media/ProximaNova-Bold.787088b281e017f8c449.eot",
@@ -18,10 +18,10 @@
     "static/media/pizza-logo.svg": "/training-project-pizza-store-react-redux/static/media/pizza-logo.56ac87032d8f6fdf863326acd06c0d97.svg",
     "index.html": "/training-project-pizza-store-react-redux/index.html",
     "main.cb5db22c.css.map": "/training-project-pizza-store-react-redux/static/css/main.cb5db22c.css.map",
-    "main.a8389e8f.js.map": "/training-project-pizza-store-react-redux/static/js/main.a8389e8f.js.map"
+    "main.ba708df0.js.map": "/training-project-pizza-store-react-redux/static/js/main.ba708df0.js.map"
   },
   "entrypoints": [
     "static/css/main.cb5db22c.css",
-    "static/js/main.a8389e8f.js"
+    "static/js/main.ba708df0.js"
   ]
 }
