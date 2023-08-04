@@ -7,3 +7,8 @@ export const setCategory = (categoryIndex) => ({
   type: 'SET_CATEGORY',
   payload: categoryIndex
 });
+
+export const setSearchName = (searchName) => ({
+  type: 'SET_SEARCH_NAME',
+  payload: searchName
+});

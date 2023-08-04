@@ -8,12 +8,13 @@ import { addPizzaToBasket } from '../redux/actions/basket';
 
 const Home = () => {
 
-  const {items, sortBy, category, isLoading, basketItems} = useSelector(({pizzas, filters, basket}) => {
+  const {items, sortBy, category, searchName, isLoading, basketItems} = useSelector(({pizzas, filters, basket}) => {
     return {
       items: pizzas.items,
       isLoading: pizzas.isLoading,
       sortBy: filters.sortBy,
       category: filters.category,
+      searchName: filters.searchName,
       basketItems: basket.items
     }
   });
@@ -22,7 +23,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchPizzas(category, sortBy));
-  }, [category, sortBy]);
+  }, [category, sortBy, searchName]);
 
   const setActiveCategory = (index) => {
     dispatch(setCategory(index));
@@ -35,6 +36,8 @@ const Home = () => {
   const onClickAddPizza = (objPizza) => {
     dispatch(addPizzaToBasket(objPizza));
   }
+  //итоговый массив пицц после поиска по имени
+  const itemsResultToSearch = items.filter(item => item.name.toLowerCase().includes(searchName));
 
   return (
     <div className="container">
@@ -47,7 +50,7 @@ const Home = () => {
       <div className="content__items">
         {isLoading
         ?
-          items.map(item => 
+          itemsResultToSearch.map(item => 
             <PizzaBlock key={item.id} basketItems={basketItems[item.id] && basketItems[item.id].items.length} onClickAddPizza={onClickAddPizza} {...item}/>
           )
         :

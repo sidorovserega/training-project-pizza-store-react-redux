@@ -1,6 +1,7 @@
 const initialState = {
   category: null,
-  sortBy: 'rating'
+  sortBy: 'rating',
+  searchName: ''
 }
 
 const filters = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const filters = (state = initialState, action) => {
       return {
         ...state,
         category: action.payload
+      };
+    case 'SET_SEARCH_NAME':
+      return {
+        ...state,
+        searchName: action.payload
       };
     default:
       return state;

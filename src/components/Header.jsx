@@ -2,15 +2,23 @@ import React from "react";
 import Button from "./Button";
 import imgLogo from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search/Search";
+import { setSearchName } from "../redux/actions/filters";
 
 const Header = () => {
 
-  const {totalPrice, totalCount} = useSelector(({basket}) => ({
+  const {totalPrice, totalCount, searchName} = useSelector(({basket, filters}) => ({
     totalPrice: basket.totalPrice,
-    totalCount: basket.totalCount
+    totalCount: basket.totalCount,
+    searchName: filters.searchName
   }));
+
+  const dispatch = useDispatch();
+
+  const onChangeSearch = (value) => {
+    dispatch(setSearchName(value));
+  }
 
   return (
     <div className="header">
@@ -24,7 +32,7 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        <Search searchName={searchName} onChangeSearch={onChangeSearch}/>
         <div className="header__cart">
           <Link to="/basket">
             <Button className="button--cart">
