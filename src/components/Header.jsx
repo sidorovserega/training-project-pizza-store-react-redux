@@ -3,6 +3,7 @@ import Button from "./Button";
 import imgLogo from '../assets/img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import Search from "./Search/Search";
 
 const Header = () => {
 
@@ -23,6 +24,7 @@ const Header = () => {
             </div>
           </div>
         </Link>
+        <Search />
         <div className="header__cart">
           <Link to="/basket">
             <Button className="button--cart">
