@@ -12,3 +12,8 @@ export const setSearchName = (searchName) => ({
   type: 'SET_SEARCH_NAME',
   payload: searchName
 });
+
+export const setPageActive = (pageActive) => ({
+  type: 'SET_PAGE_ACTIVE',
+  payload: pageActive
+});

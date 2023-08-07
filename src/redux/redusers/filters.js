@@ -1,7 +1,8 @@
 const initialState = {
   category: null,
   sortBy: 'rating',
-  searchName: ''
+  searchName: '',
+  pageActive: 1
 }
 
 const filters = (state = initialState, action) => {
@@ -21,6 +22,11 @@ const filters = (state = initialState, action) => {
         ...state,
         searchName: action.payload
       };
+    case 'SET_PAGE_ACTIVE':
+      return {
+        ...state,
+        pageActive: action.payload
+      }
     default:
       return state;
   }  

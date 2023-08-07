@@ -2,19 +2,21 @@ import React, { useEffect } from 'react'
 import { Categories, SortPopup, PizzaBlock, PizzaLoadingBlock } from '../components/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPizzas } from '../redux/actions/pizzas';
-import { setCategory, setSortBy } from '../redux/actions/filters';
+import { setCategory, setPageActive, setSortBy } from '../redux/actions/filters';
 import { addPizzaToBasket } from '../redux/actions/basket';
+import Pagination from '../components/pagination/Pagination';
 
 
 const Home = () => {
 
-  const {items, sortBy, category, searchName, isLoading, basketItems} = useSelector(({pizzas, filters, basket}) => {
+  const {items, sortBy, category, searchName, pageActive, isLoading, basketItems} = useSelector(({pizzas, filters, basket}) => {
     return {
       items: pizzas.items,
       isLoading: pizzas.isLoading,
       sortBy: filters.sortBy,
       category: filters.category,
       searchName: filters.searchName,
+      pageActive: filters.pageActive,
       basketItems: basket.items
     }
   });
@@ -23,6 +25,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchPizzas(category, sortBy));
+    dispatch(setPageActive(1));
+    window.scrollTo(0, 0);
   }, [category, sortBy, searchName]);
 
   const setActiveCategory = (index) => {
@@ -36,8 +40,19 @@ const Home = () => {
   const onClickAddPizza = (objPizza) => {
     dispatch(addPizzaToBasket(objPizza));
   }
-  //итоговый массив пицц после поиска по имени
+
+  const onChangePageActive = (page) => {
+    dispatch(setPageActive(page));
+  }
+
+  //количество карточек на странице
+  const totalPizzaBlockToPage = 4;
+  //итоговый массив пицц после поиска по названию, 
+  //так как фильтрация и поиск в mockapi совместно работают некорректно
   const itemsResultToSearch = items.filter(item => item.name.toLowerCase().includes(searchName));
+  const itemsResultToPage = itemsResultToSearch.filter((item, index) => index >= pageActive*totalPizzaBlockToPage-totalPizzaBlockToPage && index < pageActive*totalPizzaBlockToPage);
+  //количетсво страниц
+  const totalPages = Math.ceil(itemsResultToSearch.length / totalPizzaBlockToPage);
 
   return (
     <div className="container">
@@ -50,13 +65,19 @@ const Home = () => {
       <div className="content__items">
         {isLoading
         ?
-          itemsResultToSearch.map(item => 
+          itemsResultToPage.map(item => 
             <PizzaBlock key={item.id} basketItems={basketItems[item.id] && basketItems[item.id].items.length} onClickAddPizza={onClickAddPizza} {...item}/>
           )
         :
             Array(12).fill(0).map((_, index) => <PizzaLoadingBlock key={index}/>)
         }
       </div>
+      <Pagination 
+        pageActive={pageActive}
+        onChangePageActive={onChangePageActive}
+        totalPizzaBlockToPage={totalPizzaBlockToPage}
+        totalPages={totalPages}
+      />
     </div>
   );
 }
