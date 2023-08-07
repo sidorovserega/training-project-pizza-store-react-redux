@@ -75,7 +75,6 @@ const Home = () => {
       <Pagination 
         pageActive={pageActive}
         onChangePageActive={onChangePageActive}
-        totalPizzaBlockToPage={totalPizzaBlockToPage}
         totalPages={totalPages}
       />
     </div>
