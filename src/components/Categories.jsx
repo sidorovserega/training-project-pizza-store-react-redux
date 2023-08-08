@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const categories = [
-  'Мясные',
-  'Вегетарианская',
-  'Гриль',
-  'Острые',
-  'Закрытые'
+  {id: 0, name: 'Все пиццы'},
+  {id: 1, name: 'Мясные'},
+  {id: 2, name: 'Вегетарианские'},
+  {id: 3, name: 'Гриль'},
+  {id: 4, name: 'Острые'},
+  {id: 5, name: 'Закрытые'}
 ];
 
 const Categories = React.memo(({activeCategory, setActiveCategory}) => {
@@ -14,20 +15,14 @@ const Categories = React.memo(({activeCategory, setActiveCategory}) => {
   return (
     <div className="categories">
       <ul>
-        <li 
-          className={activeCategory === null ? 'active' : ''}
-          onClick={() => setActiveCategory(null)}
-        >
-          Все
-        </li>
         {categories &&
-          categories.map((nameCategory, index) => 
+          categories.map(category => 
             <li
-              key={`${nameCategory}_${index}`}
-              className={index === activeCategory ? "active" : ""}
-              onClick={() => setActiveCategory(index)}
+              key={category.id}
+              className={category.id === activeCategory.id ? "active" : ""}
+              onClick={() => setActiveCategory(category)}
             >
-              {nameCategory}
+              {category.name}
             </li> 
           ) 
         }
@@ -39,7 +34,7 @@ const Categories = React.memo(({activeCategory, setActiveCategory}) => {
 //типизация пропсов
 Categories.propTypes = {
   setActiveCategory: PropTypes.func,
-  activeCategory: PropTypes.number
+  activeCategory: PropTypes.object 
 };
 //значения по умолчанию
 Categories.defaultProps = {

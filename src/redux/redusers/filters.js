@@ -1,5 +1,8 @@
 const initialState = {
-  category: null,
+  category: {
+    name: 'Все пиццы',
+    id: 0
+  },
   sortBy: 'rating',
   searchName: '',
   pageActive: 1
@@ -15,7 +18,10 @@ const filters = (state = initialState, action) => {
     case 'SET_CATEGORY':
       return {
         ...state,
-        category: action.payload
+        category: {
+          name: action.payload.name,
+          id: action.payload.id
+        }
       };
     case 'SET_SEARCH_NAME':
       return {

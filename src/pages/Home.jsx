@@ -18,19 +18,19 @@ const Home = () => {
         pageActive: filters.pageActive,
         basketItems: basket.items,
       };
-    },
+    }
   );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPizzas(category, sortBy));
+    dispatch(fetchPizzas(category.id, sortBy));
     dispatch(setPageActive(1));
     window.scrollTo(0, 0);
   }, [category, sortBy, searchName]);
 
-  const setActiveCategory = (index) => {
-    dispatch(setCategory(index));
+  const setActiveCategory = (obj) => {
+    dispatch(setCategory(obj));
   };
 
   const setActiveSortBy = (typeName) => {
@@ -65,7 +65,7 @@ const Home = () => {
         <SortPopup activeSort={sortBy} setActiveSortBy={setActiveSortBy} />
       </div>
 
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">{isLoading && (itemsResultToPage.length !== 0 ? category.name : 'По выбранным критериям пиццы отсутствуют')}</h2>
       <div className="content__items">
         {isLoading
           ? itemsResultToPage.map((item) => (

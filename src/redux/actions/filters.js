@@ -3,9 +3,9 @@ export const setSortBy = (type) => ({
   payload: type
 });
 
-export const setCategory = (categoryIndex) => ({
+export const setCategory = (categoryObj) => ({
   type: 'SET_CATEGORY',
-  payload: categoryIndex
+  payload: categoryObj
 });
 
 export const setSearchName = (searchName) => ({

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchPizzas = (category, sortBy) => (dispatch) => {
   dispatch(setLoading(false));
-  const filterParam = category !== null ? `&category=${category}` : '';
+  const filterParam = category !== 0 ? `&category=${category}` : '';
   const sortParam = `&sortBy=${sortBy}`;
   axios.get(`https://643e8870c72fda4a0bf95812.mockapi.io/pizzas?${filterParam}${sortParam}&order=asc`).
   then(({data}) => dispatch(setPizzas(data)));
