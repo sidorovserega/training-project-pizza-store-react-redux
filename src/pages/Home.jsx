@@ -5,8 +5,13 @@ import { fetchPizzas } from '../redux/actions/pizzas';
 import { setCategory, setPageActive, setSortBy } from '../redux/actions/filters';
 import { addPizzaToBasket } from '../redux/actions/basket';
 import Pagination from '../components/pagination/Pagination';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
+import { sortTypes } from '../components/SortPopup';
+import { categories } from '../components/Categories';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { items, sortBy, category, searchName, pageActive, isLoading, basketItems } = useSelector(
     ({ pizzas, filters, basket }) => {
       return {
@@ -18,16 +23,57 @@ const Home = () => {
         pageActive: filters.pageActive,
         basketItems: basket.items,
       };
-    }
+    },
   );
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
 
+  //чтение параметров запроса из адресной строки только при первом рендере
+  React.useEffect(() => {
+    //чтение только, если есть параметры запроса
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = sortTypes.find((obj) => obj.type === params.sortByProperty);
+      console.log(sort);
+      dispatch(setSortBy(sort));
+
+      const category = categories.find((obj) => obj.id === Number(params.category));
+      console.log(category);
+      dispatch(setCategory(category));
+
+      isSearch.current = true;
+    }
+  }, []);
+
+  //запрос пицц при изменении критерий запроса
   useEffect(() => {
-    dispatch(fetchPizzas(category.id, sortBy));
-    dispatch(setPageActive(1));
     window.scrollTo(0, 0);
-  }, [category, sortBy, searchName]);
+
+    //запрашивать, если изначально не было параметров запроса,
+    //чтобы исключить двойной отрисовки
+    if (!isSearch.current) {
+      dispatch(fetchPizzas(category.id, sortBy));
+    }
+    isSearch.current = false;
+
+    //сохраняем или изменяем параметры в строке запроса, если это не первый рендер
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortByProperty: sortBy.type,
+        category: category.id,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [category, sortBy]);
+
+  //установка первой страницы при изменении строки поиска
+  React.useEffect(() => {
+    dispatch(setPageActive(1));
+  }, [searchName]);
 
   const setActiveCategory = (obj) => {
     dispatch(setCategory(obj));
@@ -65,7 +111,12 @@ const Home = () => {
         <SortPopup activeSortObj={sortBy} setActiveSortBy={setActiveSortBy} />
       </div>
 
-      <h2 className="content__title">{isLoading && (itemsResultToPage.length !== 0 ? category.name : 'По выбранным критериям пиццы отсутствуют')}</h2>
+      <h2 className="content__title">
+        {isLoading &&
+          (itemsResultToPage.length !== 0
+            ? category.name
+            : 'По выбранным критериям пиццы отсутствуют')}
+      </h2>
       <div className="content__items">
         {isLoading
           ? itemsResultToPage.map((item) => (

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import imgLogo from '../assets/img/pizza-logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Search from "./Search/Search";
 import { setSearchName } from "../redux/actions/filters";

@@ -7,7 +7,6 @@ export const fetchPizzas = (category, sortBy) => (dispatch) => {
   const vectorSortParam = `&order=${sortBy.type.slice(sortBy.type.indexOf('_') + 1)}`;
   axios.get(`https://643e8870c72fda4a0bf95812.mockapi.io/pizzas?${filterParam}${sortParam}${vectorSortParam}`).
   then(({data}) => dispatch(setPizzas(data)));
-  console.log(sortParam, vectorSortParam);
 }
    
 export const setPizzas = (items) => ({

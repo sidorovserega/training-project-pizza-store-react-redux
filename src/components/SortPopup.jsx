@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import SVGGenerate from '../assets/SVGGenerate/SVGGenerate';
 
-const sortTypes = [
+export const sortTypes = [
   { name: 'популярности', type: 'rating_asc'},
   { name: 'популярности', type: 'rating_desc'},
   { name: 'цене', type: 'price_asc'},

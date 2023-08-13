@@ -3,7 +3,7 @@ const initialState = {
     name: 'Все пиццы',
     id: 0
   },
-  sortBy: { name: 'возрастанию популярности', type: 'rating_asc', vectorSort: 'asc' },
+  sortBy: { name: 'возрастанию популярности', type: 'rating_asc'},
   searchName: '',
   pageActive: 1
 }

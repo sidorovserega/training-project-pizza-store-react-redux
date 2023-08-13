@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const categories = [
+export const categories = [
   {id: 0, name: 'Все пиццы'},
   {id: 1, name: 'Мясные'},
   {id: 2, name: 'Вегетарианские'},
