@@ -62,7 +62,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories activeCategory={category} setActiveCategory={setActiveCategory} />
-        <SortPopup activeSort={sortBy} setActiveSortBy={setActiveSortBy} />
+        <SortPopup activeSortObj={sortBy} setActiveSortBy={setActiveSortBy} />
       </div>
 
       <h2 className="content__title">{isLoading && (itemsResultToPage.length !== 0 ? category.name : 'По выбранным критериям пиццы отсутствуют')}</h2>
