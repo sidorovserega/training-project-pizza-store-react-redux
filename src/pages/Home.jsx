@@ -73,7 +73,7 @@ const Home = () => {
   //установка первой страницы при изменении строки поиска
   React.useEffect(() => {
     dispatch(setPageActive(1));
-  }, [searchName]);
+  }, [searchName, category]);
 
   const setActiveCategory = (obj) => {
     dispatch(setCategory(obj));

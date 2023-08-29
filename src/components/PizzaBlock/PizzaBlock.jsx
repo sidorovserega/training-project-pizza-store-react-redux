@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 
@@ -10,6 +10,11 @@ const PizzaBlock = ({id, name, sizes, price, imageUrl, types, onClickAddPizza, b
 
   const [activeType, setActiveType] = useState('');
   const [activeSize, setActiveSize] = useState(0);
+
+  useEffect(() => {
+    setActiveType(availableTypes[types[0]]);
+    setActiveSize(sizes[0]);
+  }, []);
 
   const onAddPizza = () => {
     const obj = {
@@ -33,17 +38,16 @@ const PizzaBlock = ({id, name, sizes, price, imageUrl, types, onClickAddPizza, b
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {availableTypes.map(typeName => 
+          {types.map(typeIndex => 
             <li 
-              key={typeName}
-              className={classNames({
-                "active": activeType === typeName,
-                "disabled": !types.includes(availableTypes.indexOf(typeName))
-              })} 
-              onClick={() => setActiveType(typeName)}
-            >
-              {typeName}
-            </li>  
+            key={typeIndex}
+            className={classNames({
+              "active": activeType === availableTypes[typeIndex]
+            })} 
+            onClick={() => setActiveType(availableTypes[typeIndex])}
+          >
+            {availableTypes[typeIndex]}
+          </li>
           )}
         </ul>
         <ul>
